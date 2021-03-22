@@ -9,7 +9,7 @@ function Pics(img) {
 }
 
 Pics.prototype.render = function () {
-  let $imgTemplet = $('#photo-template').clone();
+  let $imgTemplet = $('#photoTemplate').clone();
   $imgTemplet.addClass(`${this.keyword}`);
   $('main').append($imgTemplet);
   $imgTemplet.find('h2').text(this.title);
