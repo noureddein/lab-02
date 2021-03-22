@@ -56,7 +56,7 @@ $(() => Pics.readJson());
 $(document).ready(function () {
 
   $('#imgSelet').change(function () {
-    if ($(this).val() == 'default') {
+    if ($(this).val() === 'default') {
       $('.a').show();
     } else {
       $('.a').hide();
