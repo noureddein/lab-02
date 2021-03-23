@@ -1,0 +1,41 @@
+button {
+  margin: 10px;
+}
+
+.a {
+  margin: 10px;
+}
+select {
+  width: 10%;
+}
+.header {
+  border: 1px solid black;
+  margin: 20px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.a p {
+  width: 160px;
+  line-height: 25px;
+}
+.a {
+  width: fit-content;
+  padding: 25px;
+  border: 1px solid black;
+  text-align: center;
+}
+
+footer {
+  text-align: center;
+}
+#showRenderdItems {
+  display: flex;
+  flex-direction: column;
+  background: burlywood;
+}
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

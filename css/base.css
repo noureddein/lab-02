@@ -3,14 +3,16 @@
 @import "reset.css";
 
 @import url("https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap");
-/* @import "reset.css"; */
+
 img {
-        width: 150px;
-        height: 150px;
+  width: 150px;
+  height: 150px;
+  padding: 10px;
 }
 h1 {
-        font-size: xx-large;
+  font-size: xx-large;
+  margin: 10px 0 20px 0;
 }
 * {
-        font-family: "Gloria Hallelujah", cursive;
+  font-family: "Gloria Hallelujah", cursive;
 }
