@@ -36,7 +36,7 @@ Pics.readJson = () => {
     dataType: 'json'
   };
   let pictures;
-  $.ajax('../data/page.json', ajaxSettings)
+  $.ajax('./../data/page.json', ajaxSettings)
     .then(page => {
       page.forEach(item => {
         pictures = new Pics(item);
