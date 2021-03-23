@@ -1,25 +1,21 @@
 'use strict';
 
-function Pics(img) {
-  this.title = img.title;
-  this.image_url = img.image_url;
-  this.description = img.description;
-  this.keyword = img.keyword;
-  this.horns = img.horns;
+function Pics(items) {
+  // this.title = img.title;
+  // this.image_url = img.image_url;
+  // this.description = img.description;
+  // this.keyword = img.keyword;
+  // this.horns = img.horns;
+  for (let i in items) {
+    this[i] = items[i];
+  }
 }
+
 let newObjectItems = [];
 Pics.prototype.render = function () {
   let $imgTemplet = $('#photoTemplate').html();
-  // $imgTemplet.addClass(`${this.keyword}`);
-  // $('main').append($imgTemplet);
-  // $imgTemplet.find('h2').text(this.title);
-  // $imgTemplet.find('img').attr({
-  //   src: this.image_url,
-  //   title: this.title,
-  // });
-  // $imgTemplet.find('p').text(this.description);
   let html = Mustache.render($imgTemplet, this);
-  return html;
+  return $('#showRenderdItems').append(html);
 };
 const keywordArray = [];
 Pics.prototype.renderByKeyword = function () {
@@ -37,22 +33,36 @@ Pics.readJson = () => {
     method: 'get',
     dataType: 'json'
   };
-  $.ajax(`../data/${pages[1]}.json`, ajaxSettings).then(page => {
-    let optionsList;
-    //Push Items From JSON File to the newObjectItems Array
-    page.forEach(item => {
-      newObjectItems.push(optionsList = new Pics(item));
-      if (!keywordArray.includes(item.keyword)) {
-        keywordArray.push(item.keyword);
-      }
-    });
-    optionsList.renderByKeyword();
-
-    //Renderd Items
-    $('#clickToRenderPage1').click(function () {
-      newObjectItems.forEach(item => {
-        $('#showRenderdItems').append(item.render());
+  let rendering = function (page) {
+    $.ajax(`../data/${page}.json`, ajaxSettings).then(page => {
+      let optionsList;
+      //Push Items From JSON File to the newObjectItems Array
+      page.forEach(item => {
+        newObjectItems.push(optionsList = new Pics(item));
+        if (!keywordArray.includes(item.keyword)) {
+          keywordArray.push(item.keyword);
+        }
       });
+      optionsList.renderByKeyword();
+
+    });
+  };
+  //Renderd Items
+  $('#clickToRenderPage1').click(function () {
+    // $('section').empty();
+    // newObjectItems = [];
+    rendering(pages[1]);
+    newObjectItems.forEach(item => {
+      $('#showRenderdItems').append(item.render());
+    });
+    console.log(newObjectItems);
+  });
+  $('#clickToRenderPage2').click(function () {
+    // newObjectItems = [];
+    // $('section').empty();
+    rendering(pages[0]);
+    newObjectItems.forEach(item => {
+      $('#showRenderdItems').append(item.render());
     });
   });
 

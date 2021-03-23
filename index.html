@@ -13,6 +13,16 @@
                 <select id="imgSelet">
                     <option value="default">Show All</option>
                 </select>
+                <div>
+                    <input type="radio" id="sortByHorns"
+                        value="sortByHorns" name="sort">
+                    <label for="sortByHorns">Sort By Horns</label>
+                </div>
+                <div>
+                    <input type="radio" id="sortBytitles"
+                        value="sortBytitles" name="sort">
+                    <label for="sortBytitles">Sort By Titles</label>
+                </div>
             </div>
             <div class="buttons">
                 <button id="clickToRenderPage1">Page 1</button>
@@ -25,14 +35,15 @@
         <img src="" title="" >
         <p></p>
         </div> -->
+            <template id="photoTemplate" type="text/x-tmpl-mustache">
+                <div class="a {{keyword}}">
+                    <h2>{{title}}</h2>
+                    <img src="{{image_url}}" title="{{title}}">
+                    <p>{{description}}</p>
+                </div>
+            </template>
             <section id="showRenderdItems">
-                <template id="photoTemplate" type="text/x-tmpl-mustache">
-                    <div class="a {{keyword}}">
-                        <h2>{{title}}</h2>
-                        <img src="{{image_url}}" title="{{title}}">
-                        <p>{{description}}</p>
-                    </div>
-                </template>
+
             </section>
         </main>
         <footer>&copy; 2021 Code Fellows</footer>

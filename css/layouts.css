@@ -16,13 +16,13 @@ select {
   flex-direction: column;
 }
 .a p {
-  width: 160px;
+  width: 100%;
   line-height: 25px;
 }
 .a {
-  width: fit-content;
-  padding: 25px;
-  border: 1px solid black;
+  width: 20%;
+  /* padding: 25px; */
+  /* border: 1px solid black; */
   text-align: center;
 }
 
@@ -31,8 +31,14 @@ footer {
 }
 #showRenderdItems {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-around;
   background: burlywood;
+}
+#showRenderdItems h2 {
+  margin: 0;
+  padding: 10px 0;
+  background-color: rgb(247, 175, 81);
 }
 .buttons {
   display: flex;
