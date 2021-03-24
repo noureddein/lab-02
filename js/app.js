@@ -1,61 +1,74 @@
 'use strict';
 
-function Pics(img) {
-  this.title = img.title;
-  this.image_url = img.image_url;
-  this.description = img.description;
-  this.keyword = img.keyword;
-  this.horns = img.horns;
+function Pics(items) {
+  // this.title = img.title;
+  // this.image_url = img.image_url;
+  // this.description = img.description;
+  // this.keyword = img.keyword;
+  // this.horns = img.horns;
+  for (let i in items) {
+    this[i] = items[i];
+  }
 }
 
+let newObjectItems = [];
 Pics.prototype.render = function () {
-  let $imgTemplet = $('#photoTemplate').clone();
-  $imgTemplet.addClass(`${this.keyword}`);
-  $('main').append($imgTemplet);
-  $imgTemplet.find('h2').text(this.title);
-  $imgTemplet.find('img').attr({
-    src: this.image_url,
-    title: this.title,
-  });
-  $imgTemplet.find('p').text(this.description);
+  let $imgTemplet = $('#photoTemplate').html();
+  let html = Mustache.render($imgTemplet, this);
+  return $('#showRenderdItems').append(html);
 };
-
 const keywordArray = [];
 Pics.prototype.renderByKeyword = function () {
-  console.log(keywordArray);
+  $('#imgSelect').empty();
+  $('#imgSelect').append('<option value="default">Show All</option>');
+  keywordArray.sort();
   keywordArray.forEach(item => {
     let $selectEl = $(`<option value=${item}>${item}</option>`);
     $('select').append($selectEl);
   });
 };
 
-
+// Pages Array for chage between pages
+const pages = ['page', 'page-2'];
 Pics.readJson = () => {
   const ajaxSettings = {
     method: 'get',
     dataType: 'json'
   };
-  let pictures;
-  $.ajax('./../data/page.json', ajaxSettings)
-    .then(page => {
+  let rendering = function (page) {
+    $.ajax(`../data/${page}.json`, ajaxSettings).then(page => {
+      let optionsList;
+      //Push Items From JSON File to the newObjectItems Array
       page.forEach(item => {
-        pictures = new Pics(item);
-        if (!keywordArray.includes(pictures.keyword)) {
-          keywordArray.push(pictures.keyword);
+        newObjectItems.push(optionsList = new Pics(item));
+        if (!keywordArray.includes(item.keyword)) {
+          keywordArray.push(item.keyword);
         }
-        pictures.render();
-
       });
-      pictures.renderByKeyword();
+      optionsList.renderByKeyword();
+      if (newObjectItems !== null) {
+        $('#showRenderdItems').empty();
+        newObjectItems.forEach(item => {
+          $('#showRenderdItems').append(item.render());
+        });
+        newObjectItems = [];
+        console.log(newObjectItems);
+      }
     });
-
+  };
+  //Renderd Items
+  $('#clickToRenderPage1').click(function () {
+    rendering(pages[0]);
+  });
+  $('#clickToRenderPage2').on('click', function () {
+    rendering(pages[1]);
+  });
 
 };
 $(() => Pics.readJson());
 
 $(document).ready(function () {
-
-  $('#imgSelet').change(function () {
+  $('#imgSelect').change(function () {
     if ($(this).val() === 'default') {
       $('.a').show();
     } else {
@@ -63,5 +76,4 @@ $(document).ready(function () {
       $('.' + $(this).val()).show();
     }
   });
-
 });

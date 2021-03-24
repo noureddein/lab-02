@@ -1,0 +1,47 @@
+button {
+  margin: 10px;
+}
+
+.a {
+  margin: 10px;
+}
+select {
+  width: 10%;
+}
+.header {
+  border: 1px solid black;
+  margin: 20px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.a p {
+  width: 100%;
+  line-height: 25px;
+}
+.a {
+  width: 20%;
+  /* padding: 25px; */
+  /* border: 1px solid black; */
+  text-align: center;
+}
+
+footer {
+  text-align: center;
+}
+#showRenderdItems {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background: burlywood;
+}
+#showRenderdItems h2 {
+  margin: 0;
+  padding: 10px 0;
+  background-color: rgb(247, 175, 81);
+}
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
