@@ -36,7 +36,7 @@ Pics.readJson = () => {
     dataType: 'json'
   };
   let rendering = function (page) {
-    $.ajax(`../data/${page}.json`, ajaxSettings).then(page => {
+    $.ajax(`/data/${page}.json`, ajaxSettings).then(page => {
       let optionsList;
       //Push Items From JSON File to the newObjectItems Array
       page.forEach(item => {
