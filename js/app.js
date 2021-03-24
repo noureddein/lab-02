@@ -19,6 +19,9 @@ Pics.prototype.render = function () {
 };
 const keywordArray = [];
 Pics.prototype.renderByKeyword = function () {
+  $('#imgSelect').empty();
+  $('#imgSelect').append('<option value="default">Show All</option>');
+  keywordArray.sort();
   keywordArray.forEach(item => {
     let $selectEl = $(`<option value=${item}>${item}</option>`);
     $('select').append($selectEl);
@@ -27,7 +30,6 @@ Pics.prototype.renderByKeyword = function () {
 
 // Pages Array for chage between pages
 const pages = ['page', 'page-2'];
-
 Pics.readJson = () => {
   const ajaxSettings = {
     method: 'get',
@@ -44,33 +46,29 @@ Pics.readJson = () => {
         }
       });
       optionsList.renderByKeyword();
-
+      if (newObjectItems !== null) {
+        $('#showRenderdItems').empty();
+        newObjectItems.forEach(item => {
+          $('#showRenderdItems').append(item.render());
+        });
+        newObjectItems = [];
+        console.log(newObjectItems);
+      }
     });
   };
   //Renderd Items
   $('#clickToRenderPage1').click(function () {
-    // $('section').empty();
-    // newObjectItems = [];
-    rendering(pages[1]);
-    newObjectItems.forEach(item => {
-      $('#showRenderdItems').append(item.render());
-    });
-    console.log(newObjectItems);
-  });
-  $('#clickToRenderPage2').click(function () {
-    // newObjectItems = [];
-    // $('section').empty();
     rendering(pages[0]);
-    newObjectItems.forEach(item => {
-      $('#showRenderdItems').append(item.render());
-    });
+  });
+  $('#clickToRenderPage2').on('click', function () {
+    rendering(pages[1]);
   });
 
 };
 $(() => Pics.readJson());
 
 $(document).ready(function () {
-  $('#imgSelet').change(function () {
+  $('#imgSelect').change(function () {
     if ($(this).val() === 'default') {
       $('.a').show();
     } else {
